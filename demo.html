@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生日快乐 · 演示贺卡</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(160deg,#fdf3e3,#ffe1e8);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .card{background:#fff;border-radius:20px;box-shadow:0 12px 40px rgba(0,0,0,.12);max-width:420px;width:100%;padding:40px 28px;text-align:center}
+  .cake{font-size:72px;line-height:1}
+  h1{font-size:28px;margin:18px 0 10px;color:#222}
+  .to{color:#e2607f;font-size:18px;margin-bottom:14px}
+  p{color:#666;font-size:15px;line-height:1.8}
+  button{margin-top:26px;background:#e2607f;color:#fff;border:0;padding:13px 34px;font-size:16px;border-radius:999px;cursor:pointer}
+  button:active{transform:scale(.97)}
+  .wish{margin-top:20px;font-size:17px;color:#e2607f;min-height:26px;font-weight:600}
+  .foot{margin-top:28px;color:#bbb;font-size:12px}
+  .piece{position:fixed;top:-12px;width:9px;height:15px;z-index:9;pointer-events:none}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="cake">🎂</div>
+    <h1>生日快乐</h1>
+    <div class="to">To：亲爱的小明</div>
+    <p>新的一岁，愿你有好吃的蛋糕、想见的人，<br>和怎么用都用不完的好运气。</p>
+    <button onclick="celebrate()">点我有惊喜</button>
+    <div class="wish" id="wish"></div>
+    <div class="foot">这是一个演示页面 · 由一份 HTML 代码生成的公开链接</div>
+  </div>
+<script>
+  var colors=['#e2607f','#f5a623','#7ed321','#4a90e2','#bd10e0','#50e3c2'];
+  function celebrate(){
+    document.getElementById('wish').textContent='🎉 愿你新的一岁，闪闪发光！';
+    for(var i=0;i<60;i++){
+      var d=document.createElement('div');
+      d.className='piece';
+      d.style.left=Math.random()*100+'vw';
+      d.style.background=colors[i%colors.length];
+      d.style.borderRadius=Math.random()>.5?'50%':'2px';
+      document.body.appendChild(d);
+      var fall=900+Math.random()*900, drift=(Math.random()*120-60);
+      d.animate([
+        {transform:'translate(0,0) rotate(0deg)',opacity:1},
+        {transform:'translate('+drift+'px,'+(window.innerHeight+40)+'px) rotate('+(Math.random()*720-360)+'deg)',opacity:.7}
+      ],{duration:fall,easing:'cubic-bezier(.2,.7,.4,1)'});
+      setTimeout(function(el){el.remove()},fall+100,d);
+    }
+  }
+</script>
+</body>
+</html>
